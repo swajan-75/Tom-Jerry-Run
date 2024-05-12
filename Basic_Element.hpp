@@ -16,6 +16,6 @@ void bar(double x1,double y1 , double x2 , double y2,int r, int g, int b);
 void add_bar_with_animation(double x1 , double y1 , double x2 , double y2 , double position_updater_x , double position_updater_y ,double position_updater_z);
 void love();
 void draw_love(int quantity);
-void cup(double x1 ,double y1 , double x2 , double y2);
+void cup(double x1 ,double y1);
 void add_cup_with_animation(double new_position_x,double new_position_y,double new_position_z);
 
