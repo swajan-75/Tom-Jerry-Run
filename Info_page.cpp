@@ -64,7 +64,7 @@ int flash=glutGet(GLUT_ELAPSED_TIME)/500%2;
 
     else{
         glColor3f (1.0f, 0.0f, 0.0f);}
-        drawText("Press 'N' to go Next",0.4f,-0.89f);
+        drawText("Press 'ESC' to go Next",0.4f,-0.89f);
         glPopMatrix();
         glutSwapBuffers();
     }
