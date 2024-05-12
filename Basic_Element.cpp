@@ -65,14 +65,14 @@ void draw_love(int quantity){
     }
     
 }
-void cup(double x1 ,double y1 , double x2 , double y2)
+void cup(double x1 ,double y1)
  {
     glPushAttrib(GL_CURRENT_BIT);
-  //  glPushMatrix();
+    glPushMatrix();
     glColor4f(0.178, 0.190, 0.181,0.5);  // Set color (R, G, B)
    // glTranslatef(0.4f, -0.6f, 0.0f);
-    //glTranslatef(x1, y1+y1, 0.0f);
-    glScalef(.4,.5,0);
+    glTranslatef(x1, y1, 0.0f);
+    glScalef(0.4,.5,0);
     glColor4f(0.178, 0.190, 0.181,0.5);  // Set color (R, G, B)
 
     glBegin(GL_POLYGON);
@@ -104,7 +104,7 @@ void cup(double x1 ,double y1 , double x2 , double y2)
     glVertex2f(0.1,0.06);
 
     glEnd();
-   // glPopMatrix();
+    glPopMatrix();
     glPopAttrib();
 }
 void add_cup_with_animation(double x1 , double y1, double x2 , double y2,double new_position_x,double new_position_y,double new_position_z)
@@ -112,7 +112,7 @@ void add_cup_with_animation(double x1 , double y1, double x2 , double y2,double 
    
     glPushMatrix();
     glTranslatef(new_position_x,new_position_y , new_position_z);
-    cup(x1,y1,x2,y2);
+    cup(x1,y1);
     glPopMatrix();
 
 
