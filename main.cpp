@@ -107,7 +107,14 @@ class obstacle{
         glPopMatrix();
     }
     void cup_draw(double x1 , double y1 , double x2 , double y2 , double position_updater_x , double position_updater_y ,double position_updater_z){
-        
+        this->x =x1+position_updater_x ;
+        this->y = y1+position_updater_y ;
+        this->width = 0.15;
+        this->height=0.1;
+        glPushMatrix();
+        glTranslatef(position_updater_x, 0.0, 0.0);
+        cup(x1,y1);
+        glPopMatrix();
     }
 };
 class Coin{
@@ -118,23 +125,23 @@ class Coin{
     void draw_coin(double x1 , double y1,double r , double position_updater_x , double position_updater_y ){
         if(visible){
             this->x = x1+r;
-            this->y = y1+r  ;
-            
-            this->width=this->height=r*2;
-            glPushMatrix();
-            glTranslatef(position_updater_x, position_updater_y, 0.0);
-            x=position_updater_x;
-            //y=position_updater_y;
-            glPushMatrix();
-            glPushAttrib(GL_CURRENT_BIT);
-            glRotatef(angle, 0.0, 0.1, 0.0);
-            
-            glTranslatef(x1 * 0.001, y1, 0.0); // Adjust the factor (0.5) to reduce the radius
-                // Draw the coin
-                circle(0.0, 0.0, r, 255, 215, 0);
-            glPopAttrib();
-            glPopMatrix();
-            glPopMatrix();
+                        this->y = y1+r  ;
+                        
+                        this->width=this->height=r*2;
+                        glPushMatrix();
+                        glTranslatef(position_updater_x, position_updater_y, 0.0);
+                        x=position_updater_x;
+                        //y=position_updater_y;
+                        glPushMatrix();
+                        glPushAttrib(GL_CURRENT_BIT);
+                        glRotatef(angle, 0.0, 0.1, 0.0);
+                        
+                        glTranslatef(x1 * 0.001, y1, 0.0); // Adjust the factor (0.5) to reduce the radius
+                            // Draw the coin
+                            circle(0.0,0.0, r, 255, 215, 0);
+                        glPopAttrib();
+                        glPopMatrix();
+                        glPopMatrix();
         }
        
     }
@@ -235,7 +242,7 @@ void update2(int value) {
 void coin_update1(int value){
     if(coin_position1 <-5.5)
         coin_position1 = 1.0f;
-    coin_position1 -= 0.05;
+    coin_position1 -= 0.03;
     glutPostRedisplay();
     glutTimerFunc(100, coin_update1, 0);
 }
@@ -327,7 +334,12 @@ void update_score(int x){
         renderBitmapString(-0.98f, 0.9f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Score : "+to_string(score));
         renderBitmapString(-0.98f, 0.8f, 0.0f, GLUT_BITMAP_TIMES_ROMAN_24, "Life : ");
         draw_love(jerry.life);
-        score++;
+        if(is_collect_coin){
+            score+=1000;
+        }else{
+            score++;
+        }
+        
         //write_score(score);
     }else{
         //jerry.life = 0 ;
@@ -386,7 +398,7 @@ void display() {
     if(!game_over && jerry.life>0){
         //Jerry jerry ;
         int number_of_bars = 5;
-        int number_of_coins = 1;
+        int number_of_coins = 2;
         obstacle obs_bar[number_of_bars];
         Coin obj_C[number_of_coins];
         
@@ -429,15 +441,17 @@ void display() {
        // obs_bar[3].draw(-0.2,-0.2,0.2,-0.2,position,0,0);
         
         obs_bar[4].cup_draw(0.4,-0.6,0.7,-0.6,position,0,0);
+        obs_bar[0].cup_draw(0.6,-0.6,0.7,-0.6,position,0,0);
         
         obj_C[0].draw_coin(0.8, -0.55, 0.03, coin_position1, 0.0);
+        obj_C[1].draw_coin(0.6, -0.55, 0.03, coin_position1, 0.0);
        // add_coin_with_animation(0.6,-0.2,0.0,angle);
         
         //obs_bar[4].draw(5.2 ,-0.6 ,6.5,-0.6,long_bar_position,0,0);
        
         
         for(int i =0;i<number_of_bars;i++){
-            if(collision(jerry,obs_bar[i])){
+           /* if(collision(jerry,obs_bar[i])){
                 cout<<"ok"<<endl;
                 jerry.life--;
                 if(jerry.life){
@@ -447,18 +461,22 @@ void display() {
                 
                // cout<<"**************************************************************"<<endl;
                   
-            }
+            }*/
             //cout<<endl;
         }
         
         for(int i =0;i<number_of_coins;i++){
             if(collision(jerry, obj_C[i])){
                 is_collect_coin=true ;
-                cout<<"ok"<<endl;
                 obj_C[i].visible=false;
+               
+            }else{
+                is_collect_coin=false ;
+                obj_C[i].visible=true;
             }
             
         }
+        
         
         tom();
         
