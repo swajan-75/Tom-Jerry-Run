@@ -14,4 +14,5 @@ using namespace std;
 
 void drawButton(const char *label, float x, float y);
 void Display_Game_Home_page();
+void Display_Game_Home_page_resume();
 
