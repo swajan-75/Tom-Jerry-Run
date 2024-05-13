@@ -3,6 +3,7 @@
 #include "Info_page.hpp"
 #include "High_Score_page.h"
 #include "Basic_Element.hpp"
+#include "Characters.h"
 # define PI           3.14159265358979323846
 // pages
 bool showGame = false;
@@ -75,12 +76,17 @@ class Jerry{
         }
     }
     void draw(){
+        /*
         glBegin(GL_POLYGON);
         glVertex2f(0 , -0.5);
         glVertex2f(0.2,-0.5);
         glVertex2f(0.2,-0.6);
         glVertex2f(0,-0.6);
         glEnd();
+         */
+        glScalef(0.3, 0.35, 0.0);
+        glTranslatef(-0.6, -1.73, 0.0);
+        jerry_test();
     }
 };
 
@@ -248,7 +254,7 @@ void coin_update1(int value){
 }
 
 void tom(){
-    
+    /*
     glPushMatrix();
     glBegin(GL_POLYGON);
    
@@ -258,6 +264,15 @@ void tom(){
     glVertex2f(-0.6,-0.6);
     glEnd();
     glPopMatrix();
+    */
+    glPushMatrix();
+    glPushAttrib(GL_CURRENT_BIT);
+    glTranslatef(-0.6,-0.45,0);
+    glScaled(0.4, 0.5, 0.0);
+    tom_test();
+    glPopAttrib();
+    glPopMatrix();
+    
     
 }
 void jerry_get_down(int x) {
@@ -451,7 +466,7 @@ void display() {
        
         
         for(int i =0;i<number_of_bars;i++){
-           /* if(collision(jerry,obs_bar[i])){
+            if(collision(jerry,obs_bar[i])){
                 cout<<"ok"<<endl;
                 jerry.life--;
                 if(jerry.life){
@@ -461,7 +476,7 @@ void display() {
                 
                // cout<<"**************************************************************"<<endl;
                   
-            }*/
+            }
             //cout<<endl;
         }
         
